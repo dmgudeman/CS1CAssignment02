@@ -5,12 +5,14 @@ import cs_1c.FHarrayList;
 import cs_1c.FHlinkedList;
 
 
-public class SparseMat<E> implements Cloneable
+public class SparseMat<E extends Comparable> implements Cloneable
 {
   
    protected int rowSize, colSize;
    protected E defaultVal;
-  // protected FHarrayList < FHlinkedList< MatNode > > rows;
+   protected FHarrayList < FHlinkedList< MatNode > > rows;
+   
+  
  
    public SparseMat(int rowSize, int colSize, E defaultVal)
    {
@@ -19,7 +21,7 @@ public class SparseMat<E> implements Cloneable
       this.rowSize = rowSize;
       this.colSize = colSize;
       this.defaultVal = defaultVal;
-      
+      rows = new FHarrayList < FHlinkedList< MatNode > >(rowSize);
 //      Iterator<FHlinkedList<SparseMat<E>.MatNode>> iter = sparseMat.iterator();
       allocateEmptyMatrix();
    }
@@ -27,17 +29,17 @@ public class SparseMat<E> implements Cloneable
    
    private void allocateEmptyMatrix()
    { 
-      FHarrayList < FHlinkedList< MatNode > > backBone = new FHarrayList < FHlinkedList< MatNode > >(rowSize);
+      
    
       System.out.println(" rowSize: " + rowSize + "\n");
-      System.out.println("sparseMat.size(): " +backBone.size() + "\n");
+      System.out.println("sparseMat.size(): " +rows.size() + "\n");
       for (int i=0; i <rowSize; i++)    
       {
        FHlinkedList<MatNode> starter = new FHlinkedList<MatNode>();
-       backBone.add(starter);
+       rows.add(starter);
       }
-      System.out.println("sparseMat.size(): " +backBone.size() + "\n");
-    System.out.println(backBone.size());
+      System.out.println("sparseMat.size(): " +rows.size() + "\n");
+    System.out.println(rows.size());
    }
    
    protected <E> E get(int r, int c)
@@ -51,18 +53,19 @@ public class SparseMat<E> implements Cloneable
    }
    
    protected boolean set(int r, int c, E x)
-   {   int aIndex = r;
+   {  
       if (r < 0 || c < 0 || r > rowSize || c > r)
-         throw new IndexOutOfBoundsException();
-       
+         return false;
+      if (x.compareTo(defaultVal) < 0)
+         return false;
+      if (x == defaultVal)
+         x = defaultVal;
+      
       MatNode matNode = new MatNode(c, x);
        FHlinkedList<MatNode> newList = new FHlinkedList<MatNode>(); 
        newList.add(matNode); 
-      if(newList != null)
-      {
-         
-      }
-      return false;
+      
+      return true;
    }
    
    protected void clear () {}
