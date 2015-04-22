@@ -25,7 +25,8 @@ public class SparseMat<E extends Comparable> implements Cloneable
 //      Iterator<FHlinkedList<SparseMat<E>.MatNode>> iter = sparseMat.iterator();
       allocateEmptyMatrix();
    }
-   Iterator<FHarrayList> iter;
+   Iterator<FHarrayList< FHlinkedList< MatNode > >> iter;
+   ListIterator<FHlinkedList< MatNode > > listIter;
    
    private void allocateEmptyMatrix()
    { 
@@ -47,6 +48,8 @@ public class SparseMat<E extends Comparable> implements Cloneable
      
       if (r < 0 || c < 0 || r > rowSize || c > r)
       {
+             node = (E) rows.get(r).get(c).data;
+            
          
       }
       return node;
@@ -64,7 +67,8 @@ public class SparseMat<E extends Comparable> implements Cloneable
       MatNode matNode = new MatNode(c, x);
        FHlinkedList<MatNode> newList = new FHlinkedList<MatNode>(); 
        newList.add(matNode); 
-      
+      System.out.println("This is node "  + newList.get(c));
+       System.out.println("I SEE THIS");
       return true;
    }
    
