@@ -6,14 +6,11 @@ import cs_1c.FHlinkedList;
 
 
 public class SparseMat<E extends Comparable> implements Cloneable
-{
-  
+{  
    protected int rowSize, colSize;
    protected E defaultVal;
    protected FHarrayList < FHlinkedList< MatNode > > rows;
-   
-  
- 
+
    public SparseMat(int rowSize, int colSize, E defaultVal)
    {
       if (rowSize < 1){rowSize = 1;}
@@ -25,13 +22,9 @@ public class SparseMat<E extends Comparable> implements Cloneable
 //      Iterator<FHlinkedList<SparseMat<E>.MatNode>> iter = sparseMat.iterator();
       allocateEmptyMatrix();
    }
-   Iterator<FHarrayList< FHlinkedList< MatNode > >> iter;
-   ListIterator<FHlinkedList< MatNode > > listIter;
    
    private void allocateEmptyMatrix()
    { 
-      
-   
       System.out.println(" rowSize: " + rowSize + "\n");
       System.out.println("sparseMat.size(): " +rows.size() + "\n");
       for (int i=0; i <rowSize; i++)    
@@ -43,39 +36,64 @@ public class SparseMat<E extends Comparable> implements Cloneable
     System.out.println(rows.size());
    }
    
-   protected <E> E get(int r, int c)
-   {  E node = null;
+   
+   protected  E get(int r, int c)
+   {  
+      
+     MatNode node;
      
-      if (r < 0 || c < 0 || r > rowSize || c > r)
+    ListIterator<MatNode> listIter = rows.get(r).listIterator();
+      while (listIter.hasNext())
       {
-             node = (E) rows.get(r).get(c).data;
-            
-         
+         node = listIter.next();
+         if (node.col == c)
+         {
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX " +node.data );
+            return node.data;
+         }
       }
-      return node;
+      
+      return null;
+      
+      
+//     rows.get(r).get(c);
+//     ListIterator<FHlinkedList> listIter = rows.get(r).listIterator(c);
+    
+       
+     
    }
    
    protected boolean set(int r, int c, E x)
    {  
-      if (r < 0 || c < 0 || r > rowSize || c > r)
+      if (r < 0 || c < 0 || r > rowSize || c > colSize)
          return false;
+      
       if (x.compareTo(defaultVal) < 0)
          return false;
+     
       if (x == defaultVal)
          x = defaultVal;
       
-      MatNode matNode = new MatNode(c, x);
+     
+       MatNode matNode = new MatNode(c, x);
+       
+       if (rows.get(c) == null)
+       {
        FHlinkedList<MatNode> newList = new FHlinkedList<MatNode>(); 
        newList.add(matNode); 
-      System.out.println("This is node "  + newList.get(c));
-       System.out.println("I SEE THIS");
+       }
+       rows.get(c).add(matNode); 
+    
+     
       return true;
    }
    
    protected void clear () {}
    
    protected void showSubsquare(int start, int size)
+   
    {
+     
    }
   
    // protected enables us to safely make col/data public

@@ -19,26 +19,32 @@ public class Foothill
      
       // test mutators
       for (k = 0; k < 10; k++)
-      {
-         mat.set(k, k, (k+1)*1.);
-         mat.set(4, k, k*10.);
-         mat.set(k, 4, -k*10.);
+      {   
+         mat.set(k, k,  k*100.);
+        System.out.println(mat.get (k,k));
+         mat.set(5, k,  k*10000.);
+         System.out.println(mat.get (5,k));
+         mat.set(k, 5, -k*10.);
+         System.out.println(mat.get (k,5));
       }
-      mat.showSubsquare(0, 12);
-      System.out.println();
-      System.out.println("mat.get = " + mat.get(5, 5));
+    
+     
+      
       
     //  SparseMat<Double> mat2 = (SparseMat<Double>)mat.clone();
       
       for (k = 0; k < 10; k++)
       {
          mat.set(k, k, 1.);
-         mat.set(4, k, 10.);
-         mat.set(k, 4, -10.);
+        
+         mat.set(k+10, k+10, 10.);
+       
+         mat.set(k, k, 100.);
+         
       }
       
       mat.showSubsquare(0, 12);
-      System.out.println();
+     
      // mat2.showSubsquare(0, 12);
    }
 }
