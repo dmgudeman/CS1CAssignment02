@@ -10,7 +10,7 @@ public class SparseMat<E> implements Cloneable
   
    protected int rowSize, colSize;
    protected E defaultVal;
-   protected FHarrayList < FHlinkedList< MatNode > > rows;
+  // protected FHarrayList < FHlinkedList< MatNode > > rows;
  
    public SparseMat(int rowSize, int colSize, E defaultVal)
    {
@@ -27,17 +27,17 @@ public class SparseMat<E> implements Cloneable
    
    private void allocateEmptyMatrix()
    { 
-      FHarrayList < FHlinkedList< MatNode > > sparseMat = new FHarrayList < FHlinkedList< MatNode > >(rowSize);
+      FHarrayList < FHlinkedList< MatNode > > backBone = new FHarrayList < FHlinkedList< MatNode > >(rowSize);
    
       System.out.println(" rowSize: " + rowSize + "\n");
-      System.out.println("sparseMat.size(): " +sparseMat.size() + "\n");
+      System.out.println("sparseMat.size(): " +backBone.size() + "\n");
       for (int i=0; i <rowSize; i++)    
       {
        FHlinkedList<MatNode> starter = new FHlinkedList<MatNode>();
-       sparseMat.add(starter);
+       backBone.add(starter);
       }
-      System.out.println("sparseMat.size(): " +sparseMat.size() + "\n");
-    System.out.println(sparseMat.size());
+      System.out.println("sparseMat.size(): " +backBone.size() + "\n");
+    System.out.println(backBone.size());
    }
    
    protected <E> E get(int r, int c)
@@ -51,16 +51,17 @@ public class SparseMat<E> implements Cloneable
    }
    
    protected boolean set(int r, int c, E x)
-   { 
+   {   int aIndex = r;
       if (r < 0 || c < 0 || r > rowSize || c > r)
          throw new IndexOutOfBoundsException();
        
       MatNode matNode = new MatNode(c, x);
        FHlinkedList<MatNode> newList = new FHlinkedList<MatNode>(); 
-       newList.add(matNode);
-       this.set(r, c, x);
-        
-      
+       newList.add(matNode); 
+      if(newList != null)
+      {
+         
+      }
       return false;
    }
    
