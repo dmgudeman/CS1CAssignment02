@@ -30,8 +30,14 @@ public class Foothill
 //         System.out.println("THAT" + mat.get (k+1,k+1));
 //      }
     
-      mat.set(1, 2, 25.);
-      System.out.println(mat.get(1,2));
+      mat.set(2, 2, 22.);
+      mat.set(3, 3, 33.);
+      mat.set(4, 4, 44.);
+      mat.set(4, 4, null);
+//      System.out.println(mat.get(2,2));
+//      System.out.println(mat.get(3,3));
+//      System.out.println(mat.get(2,2));
+//      System.out.println(mat.get(3,3));
       
     //  SparseMat<Double> mat2 = (SparseMat<Double>)mat.clone();
       

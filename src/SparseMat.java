@@ -4,156 +4,115 @@ import java.util.ListIterator;
 import cs_1c.FHarrayList;
 import cs_1c.FHlinkedList;
 
-
 public class SparseMat<E extends Comparable> implements Cloneable
-{  
+{
    protected int rowSize, colSize;
    protected E defaultVal;
-   protected FHarrayList < FHlinkedList< MatNode > > rows;
+   protected FHarrayList<FHlinkedList<MatNode>> rows;
 
    public SparseMat(int rowSize, int colSize, E defaultVal)
    {
-      if (rowSize < 1){rowSize = 1;}
-      if (colSize < 1){colSize = 1;}
+      if (rowSize < 1)
+      {
+         rowSize = 1;
+      }
+      if (colSize < 1)
+      {
+         colSize = 1;
+      }
       this.rowSize = rowSize;
       this.colSize = colSize;
       this.defaultVal = defaultVal;
-      rows = new FHarrayList < FHlinkedList< MatNode > >(rowSize);
-//      Iterator<FHlinkedList<SparseMat<E>.MatNode>> iter = sparseMat.iterator();
+      rows = new FHarrayList<FHlinkedList<MatNode>>(rowSize);
+
       allocateEmptyMatrix();
    }
-   
+
    private void allocateEmptyMatrix()
-   { 
+   {
       System.out.println(" rowSize: " + rowSize + "\n");
-      System.out.println("sparseMat.size(): " +rows.size() + "\n");
-      for (int i=0; i <rowSize; i++)    
+      System.out.println("sparseMat.size(): " + rows.size() + "\n");
+      for (int i = 0; i < rowSize; i++)
       {
-       FHlinkedList<MatNode> starter = new FHlinkedList<MatNode>();
-      
-       rows.add(starter);
+         FHlinkedList<MatNode> starter = new FHlinkedList<MatNode>();
+
+         rows.add(starter);
       }
-      System.out.println("sparseMat.size(): " +rows.size() + "\n");
+      System.out.println("sparseMat.size(): " + rows.size() + "\n");
       System.out.println(rows.size());
    }
-   
-   
-   protected  E get(int r, int c)
-   {  
-     MatNode node;
-     
-    ListIterator<MatNode> listIter = rows.get(r).listIterator();
+
+   protected E get(int r, int c)
+   {
+      MatNode node;
+
+      ListIterator<MatNode> listIter = rows.get(r).listIterator();
       while (listIter.hasNext())
       {
          node = listIter.next();
-        
-       if (node.col == c)
-//            System.out.println("col " + node.col + "        c" + c);
+
+         if (node.col == c)
+
          {
-//  ÷          System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX " +node.data );
             return node.data;
          }
-      }     
-      return null;     
-//     rows.get(r).get(c);
-//     ListIterator<FHlinkedList> listIter = rows.get(r).listIterator(c);
-
+      }
+      return null;
    }
-   
+
    protected boolean set(int r, int c, E x)
-   {  
+   {
       if (r < 0 || c < 0 || r > rowSize || c > colSize)
          return false;
- 
-       MatNode matNode = new MatNode(c, x);
-       
-       
-       ListIterator<MatNode> hiter = rows.get(r).listIterator();
-      
-       System.out.println("hi there");
-     
-          while (hiter.hasNext())
-          {  
-             System.out.println("hiter.next().col" + hiter.next().col);
-                //if (x.compareTo(listIter.next()) < 0)
-//             if ( hiter.next().col == c) 
-//             {   
-//                hiter.add(matNode);
-//                return true;
-//             }
-             if ( hiter.next().col < c)
-             {
-                rows.get(r).add(matNode);
-                return true;
-             }         
-           }     
-            rows.get(r).add(matNode);
-          System.out.println("HI THAT");
-          return true;
+
+      MatNode temp;
+      MatNode matNode = new MatNode(c, x);
+      ListIterator<MatNode> iterS = rows.get(r).listIterator();
+      System.out.println("hi there");
+      while (iterS.hasNext())
+      {
+         temp = iterS.next();
+
+         if (temp.col < c)
+         {
+            if (matNode.data == defaultVal)
+               matNode.data = null;
+
+            iterS.add(matNode);
+            System.out.println("hiter added ");
+            return true;
+         }
+         System.out.println(temp.col);
+         System.out.println(temp.data);
+      }
+      rows.get(r).add(matNode);
+      return true;
    }
-   
-   protected void clear () 
+
+   protected void clear()
    {
-     rows.clear();
+      rows.clear();
    }
-   
+
    protected void showSubsquare(int start, int size)
-   {  MatNode node;
+   {
+      MatNode node;
       for (int i = start; i < 12; i++)
       {
-        for (int j =0; j < size; j++) 
-        {
-           
-         
-        }
-         
-         
-         
-         
-         
-     }
-   }
-    
-         
-         //     System.out.println("\n");
-     // ListIterator<MatNode> listIter = rows.get(i).listIterator();
-  //    while (listIter.hasNext())
-//     for (int j = 0; j <12; j++)
-//      {
-//         node = listIter.next();
-//         double rate = 0.0;
-//         Double r1 = new Double(rate);
-//              
-//          if (node.data == null || node.data.equals(r1)){System.out.println(0.0);}
-//            System.out.print( node.data + "("+ node.col +")   ");
-//            
-//         
-// 
-      
-      
-      
-      
-      
-      
-//      int iSize = size - start;
-//      int jSize = iSize;
-//      
-//      for (int i = start; i < 12; i++)
-//      {
-//         for (int j = 0; j < jSize; j ++)
-//         {
-//           System.out.println(rows.get(i).get(j).data:
-//         }
-//      }
-     
+         for (int j = 0; j < size; j++)
+         {
 
-  
+         }
+
+      }
+   }
+
    // protected enables us to safely make col/data public
    protected class MatNode implements Cloneable
    {
       public int col;
       public E data;
-      
+
       // we need a default constructor for lists
       MatNode()
       {
@@ -166,11 +125,11 @@ public class SparseMat<E extends Comparable> implements Cloneable
          col = cl;
          data = dt;
       }
-      
+
       public Object clone() throws CloneNotSupportedException
       {
          // shallow copy
-         MatNode newObject = (MatNode)super.clone();
+         MatNode newObject = (MatNode) super.clone();
          return (Object) newObject;
       }
    };
