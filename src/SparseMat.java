@@ -48,60 +48,87 @@ public class SparseMat<E extends Comparable> implements Cloneable
          node = listIter.next();
         
        if (node.col == c)
-            System.out.println("col " + node.col + "        c" + c);
+//            System.out.println("col " + node.col + "        c" + c);
          {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX " +node.data );
+//  ÷          System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX " +node.data );
             return node.data;
          }
-      }
-      
-      return null;
-      
-      
+      }     
+      return null;     
 //     rows.get(r).get(c);
 //     ListIterator<FHlinkedList> listIter = rows.get(r).listIterator(c);
-    
-       
-     
+
    }
    
    protected boolean set(int r, int c, E x)
    {  
       if (r < 0 || c < 0 || r > rowSize || c > colSize)
          return false;
-      
-      if (x.compareTo(defaultVal) < 0)
-         return false;
-     
-      if (x == defaultVal)
-         x = defaultVal;
  
        MatNode matNode = new MatNode(c, x);
+       
+       
+       ListIterator<MatNode> hiter = rows.get(r).listIterator();
+      
+       System.out.println("hi there");
      
-       rows.get(r).add(matNode);
-   
-      return true;
+          while (hiter.hasNext())
+          {  
+             System.out.println("hiter.next().col" + hiter.next().col);
+                //if (x.compareTo(listIter.next()) < 0)
+//             if ( hiter.next().col == c) 
+//             {   
+//                hiter.add(matNode);
+//                return true;
+//             }
+             if ( hiter.next().col < c)
+             {
+                rows.get(r).add(matNode);
+                return true;
+             }         
+           }     
+            rows.get(r).add(matNode);
+          System.out.println("HI THAT");
+          return true;
    }
    
-   protected void clear () {}
+   protected void clear () 
+   {
+     rows.clear();
+   }
    
    protected void showSubsquare(int start, int size)
    {  MatNode node;
       for (int i = start; i < 12; i++)
       {
-     System.out.println("\n");
-      ListIterator<MatNode> listIter = rows.get(i).listIterator();
-      while (listIter.hasNext())
-      {
-         node = listIter.next();
-        
-     
-            System.out.print( node.data + "     " );
-            
+        for (int j =0; j < size; j++) 
+        {
+           
          
-         }
-      }
-      
+        }
+         
+         
+         
+         
+         
+     }
+   }
+    
+         
+         //     System.out.println("\n");
+     // ListIterator<MatNode> listIter = rows.get(i).listIterator();
+  //    while (listIter.hasNext())
+//     for (int j = 0; j <12; j++)
+//      {
+//         node = listIter.next();
+//         double rate = 0.0;
+//         Double r1 = new Double(rate);
+//              
+//          if (node.data == null || node.data.equals(r1)){System.out.println(0.0);}
+//            System.out.print( node.data + "("+ node.col +")   ");
+//            
+//         
+// 
       
       
       
@@ -119,7 +146,7 @@ public class SparseMat<E extends Comparable> implements Cloneable
 //         }
 //      }
      
-   }
+
   
    // protected enables us to safely make col/data public
    protected class MatNode implements Cloneable

@@ -18,20 +18,20 @@ public class Foothill
          = new SparseMat<Double>(MAT_SIZE, MAT_SIZE, 0.); //
      
       // test mutators
-      for (k = 0; k < 10; k++)
-      {   
-         mat.set(k, 3,  3.);
+//      for (k = 0; k < 10; k++)
+//      {   
+//         mat.set(k, 3,  3.);
 //        System.out.println("THIS  + "  +mat.get (k,k));
-         mat.set(k+2, 8,  56.);
+//         mat.set(k+2, 8,  56.);
 //         System.out.println("THE OTHER" + mat.get (5,4));
-         mat.set(k+3, 31, -k*100.);
+//         mat.set(k+3, 31, -k*100.);
 //         System.out.println(mat.get (k,5));
-         mat.set(k + 4, 45, 78.);
-         System.out.println("THAT" + mat.get (k+1,k+1));
-      }
+//         mat.set(k + 4, 45, 78.);
+//         System.out.println("THAT" + mat.get (k+1,k+1));
+//      }
     
-     
-      
+      mat.set(1, 2, 25.);
+      System.out.println(mat.get(1,2));
       
     //  SparseMat<Double> mat2 = (SparseMat<Double>)mat.clone();
       
