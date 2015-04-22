@@ -30,23 +30,25 @@ public class SparseMat<E extends Comparable> implements Cloneable
       for (int i=0; i <rowSize; i++)    
       {
        FHlinkedList<MatNode> starter = new FHlinkedList<MatNode>();
+      
        rows.add(starter);
       }
       System.out.println("sparseMat.size(): " +rows.size() + "\n");
-    System.out.println(rows.size());
+      System.out.println(rows.size());
    }
    
    
    protected  E get(int r, int c)
    {  
-      
      MatNode node;
      
     ListIterator<MatNode> listIter = rows.get(r).listIterator();
       while (listIter.hasNext())
       {
          node = listIter.next();
-         if (node.col == c)
+        
+       if (node.col == c)
+            System.out.println("col " + node.col + "        c" + c);
          {
             System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXX " +node.data );
             return node.data;
@@ -73,26 +75,49 @@ public class SparseMat<E extends Comparable> implements Cloneable
      
       if (x == defaultVal)
          x = defaultVal;
-      
-     
+ 
        MatNode matNode = new MatNode(c, x);
-       
-       if (rows.get(c) == null)
-       {
-       FHlinkedList<MatNode> newList = new FHlinkedList<MatNode>(); 
-       newList.add(matNode); 
-       }
-       rows.get(c).add(matNode); 
-    
      
+       rows.get(r).add(matNode);
+   
       return true;
    }
    
    protected void clear () {}
    
    protected void showSubsquare(int start, int size)
-   
-   {
+   {  MatNode node;
+      for (int i = start; i < 12; i++)
+      {
+     System.out.println("\n");
+      ListIterator<MatNode> listIter = rows.get(i).listIterator();
+      while (listIter.hasNext())
+      {
+         node = listIter.next();
+        
+     
+            System.out.print( node.data + "     " );
+            
+         
+         }
+      }
+      
+      
+      
+      
+      
+      
+      
+//      int iSize = size - start;
+//      int jSize = iSize;
+//      
+//      for (int i = start; i < 12; i++)
+//      {
+//         for (int j = 0; j < jSize; j ++)
+//         {
+//           System.out.println(rows.get(i).get(j).data:
+//         }
+//      }
      
    }
   
