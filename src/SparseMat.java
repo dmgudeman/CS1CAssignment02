@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import java.util.ListIterator;
 
 import cs_1c.FHarrayList;
@@ -46,18 +45,20 @@ public class SparseMat<E extends Comparable> implements Cloneable
    {
       MatNode node;
 
+      if (r < 0 || c < 0 || r > rowSize || c > colSize)
+         throw new IndexOutOfBoundsException();
+
       ListIterator<MatNode> listIter = rows.get(r).listIterator();
       while (listIter.hasNext())
       {
          node = listIter.next();
 
          if (node.col == c)
-
          {
             return node.data;
          }
       }
-      return null;
+      return defaultVal;
    }
 
    protected boolean set(int r, int c, E x)
@@ -68,23 +69,30 @@ public class SparseMat<E extends Comparable> implements Cloneable
       MatNode temp;
       MatNode matNode = new MatNode(c, x);
       ListIterator<MatNode> iterS = rows.get(r).listIterator();
-     
+
       while (iterS.hasNext())
       {
          temp = iterS.next();
-
-         if (temp.col > c)
+         if (matNode.data == defaultVal)
          {
-            if (matNode.data == defaultVal)
-               matNode.data = null;
-            iterS.previous();
-            iterS.add(matNode);
-//      
+            iterS.remove();
             return true;
          }
 
+         if (temp.col == c)
+         {
+            iterS.set(matNode);
+            return true;
+         }
+
+         if (temp.col > c)
+         {
+            iterS.previous();
+            iterS.add(matNode);
+            return true;
+         }
       }
-      rows.get(r).add(matNode);
+      iterS.add(matNode);
       return true;
    }
 
@@ -94,49 +102,35 @@ public class SparseMat<E extends Comparable> implements Cloneable
    }
 
    protected void showSubsquare(int start, int size)
-   {  MatNode prevTemp;
+   {
+      MatNode prevTemp;
       MatNode temp;
-      Double x;
-     int str = start;
-     
-      for (int i = 0; i < 4 ; i ++)
+
+      int str = start;
+
+      for (int i = 0; i < 4; i++)
       {
          System.out.println("\n");
          ListIterator<MatNode> iterPc = rows.get(i).listIterator();
-         
-         
+
          while (iterPc.hasNext())
-       {  
-           temp = iterPc.next();
-           prevTemp = iterPc.previous();
+         {
+            temp = iterPc.next();
+            prevTemp = iterPc.previous();
             Double x1 = (Double) temp.data;
             if (temp.col - str > 1 || prevTemp.col - temp.col > 1)
             {
                System.out.println("    " + 0.00);
-              str++;
-            } else {
-              iterPc.next();
-            
-          System.out.print("    " + x1 );
+               str++;
+            } else
+            {
+               iterPc.next();
+
+               System.out.print("    " + x1);
             }
-         
-       }
-          
-          
-       
+
+         }
       }
-   
-//  
-         //iterPc.hasNext() && 
-//         {
-//            if( iterPc.next().data == null)
-//               System.out.println( 0.0 );
-//         
-//            System.out.print(iterPr.next().data);
-        
-       
-     
-      
    }
 
    // protected enables us to safely make col/data public
