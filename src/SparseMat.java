@@ -68,7 +68,7 @@ public class SparseMat<E extends Comparable> implements Cloneable
       MatNode temp;
       MatNode matNode = new MatNode(c, x);
       ListIterator<MatNode> iterS = rows.get(r).listIterator();
-      System.out.println("hi there");
+     
       while (iterS.hasNext())
       {
          temp = iterS.next();
@@ -79,11 +79,11 @@ public class SparseMat<E extends Comparable> implements Cloneable
                matNode.data = null;
 
             iterS.add(matNode);
-            System.out.println("hiter added ");
+//            System.out.println("hiter added ");
             return true;
          }
-         System.out.println(temp.col);
-         System.out.println(temp.data);
+//         System.out.println(temp.col);
+//         System.out.println(temp.data);
       }
       rows.get(r).add(matNode);
       return true;
@@ -95,16 +95,40 @@ public class SparseMat<E extends Comparable> implements Cloneable
    }
 
    protected void showSubsquare(int start, int size)
-   {
-      MatNode node;
-      for (int i = start; i < 12; i++)
+   {  
+     
+      Double x;
+     
+      for (int i = 0; i < 4 ; i ++)
       {
-         for (int j = 0; j < size; j++)
-         {
-
-         }
-
+         System.out.println("\n");
+         ListIterator<MatNode> iterPc = rows.get(i).listIterator();
+         
+         
+         while (iterPc.hasNext())
+       {  
+            Double x1 = (Double) iterPc.next().data;
+            
+          System.out.print("    " + x1 );
+         
+         
+       }
+          
+          
+       
       }
+   
+//  
+         //iterPc.hasNext() && 
+//         {
+//            if( iterPc.next().data == null)
+//               System.out.println( 0.0 );
+//         
+//            System.out.print(iterPr.next().data);
+        
+       
+     
+      
    }
 
    // protected enables us to safely make col/data public

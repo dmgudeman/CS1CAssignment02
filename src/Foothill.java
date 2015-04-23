@@ -18,27 +18,35 @@ public class Foothill
          = new SparseMat<Double>(MAT_SIZE, MAT_SIZE, 0.); //
      
       // test mutators
-//      for (k = 0; k < 10; k++)
-//      {   
-//         mat.set(k, 3,  3.);
+//  
+     // for (k = 0; k < 10; k++)
+      {   
+         mat.set(0, 0, 0.);
 //        System.out.println("THIS  + "  +mat.get (k,k));
-//         mat.set(k+2, 8,  56.);
-//         System.out.println("THE OTHER" + mat.get (5,4));
-//         mat.set(k+3, 31, -k*100.);
+         mat.set(0, 1, 1.);
+        mat.set(1, 3, 13.);
+         mat.set(1, 0, 10.);
 //         System.out.println(mat.get (k,5));
-//         mat.set(k + 4, 45, 78.);
+         mat.set(1, 1, 11.);
 //         System.out.println("THAT" + mat.get (k+1,k+1));
-//      }
+         mat.set(2, 0, 20.);
+        
+         mat.set(3,3, 33.);
+         mat.set(3,2, 32.);
+         
+         
+         }
     
-      mat.set(2, 2, 22.);
-      mat.set(3, 3, 33.);
-      mat.set(4, 4, 44.);
-      mat.set(4, 4, null);
+//      mat.set(2, 2, 22.);
+//      mat.set(3, 3, 33.);
+//      mat.set(4, 4, 44.);
+//      mat.set(4, 4, null);
 //      System.out.println(mat.get(2,2));
 //      System.out.println(mat.get(3,3));
 //      System.out.println(mat.get(2,2));
 //      System.out.println(mat.get(3,3));
       
+      mat.showSubsquare(12, 12);
     //  SparseMat<Double> mat2 = (SparseMat<Double>)mat.clone();
       
       for (k = 0; k < 10; k++)
@@ -51,7 +59,7 @@ public class Foothill
          
       }
       
-      mat.showSubsquare(0, 12);
+     
      
      // mat2.showSubsquare(0, 12);
    }
