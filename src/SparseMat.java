@@ -73,17 +73,16 @@ public class SparseMat<E extends Comparable> implements Cloneable
       {
          temp = iterS.next();
 
-         if (temp.col < c)
+         if (temp.col > c)
          {
             if (matNode.data == defaultVal)
                matNode.data = null;
-
+            iterS.previous();
             iterS.add(matNode);
-//            System.out.println("hiter added ");
+//      
             return true;
          }
-//         System.out.println(temp.col);
-//         System.out.println(temp.data);
+
       }
       rows.get(r).add(matNode);
       return true;
@@ -95,9 +94,10 @@ public class SparseMat<E extends Comparable> implements Cloneable
    }
 
    protected void showSubsquare(int start, int size)
-   {  
-     
+   {  MatNode prevTemp;
+      MatNode temp;
       Double x;
+     int str = start;
      
       for (int i = 0; i < 4 ; i ++)
       {
@@ -107,10 +107,18 @@ public class SparseMat<E extends Comparable> implements Cloneable
          
          while (iterPc.hasNext())
        {  
-            Double x1 = (Double) iterPc.next().data;
+           temp = iterPc.next();
+           prevTemp = iterPc.previous();
+            Double x1 = (Double) temp.data;
+            if (temp.col - str > 1 || prevTemp.col - temp.col > 1)
+            {
+               System.out.println("    " + 0.00);
+              str++;
+            } else {
+              iterPc.next();
             
           System.out.print("    " + x1 );
-         
+            }
          
        }
           

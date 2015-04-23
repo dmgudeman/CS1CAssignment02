@@ -22,29 +22,21 @@ public class Foothill
      // for (k = 0; k < 10; k++)
       {   
          mat.set(0, 0, 0.);
-//        System.out.println("THIS  + "  +mat.get (k,k));
-         mat.set(0, 1, 1.);
-        mat.set(1, 3, 13.);
+
+//         mat.set(0, 1, 1.);
+         mat.set(1, 3, 13.);
          mat.set(1, 0, 10.);
-//         System.out.println(mat.get (k,5));
-         mat.set(1, 1, 11.);
-//         System.out.println("THAT" + mat.get (k+1,k+1));
-         mat.set(2, 0, 20.);
-        
-         mat.set(3,3, 33.);
-         mat.set(3,2, 32.);
-         
+
+//         mat.set(1, 1, 11.);
+//
+//         mat.set(2, 0, 20.);
+//        
+//         mat.set(3,3, 33.);
+//         mat.set(3,2, 32.);
+//         
          
          }
-    
-//      mat.set(2, 2, 22.);
-//      mat.set(3, 3, 33.);
-//      mat.set(4, 4, 44.);
-//      mat.set(4, 4, null);
-//      System.out.println(mat.get(2,2));
-//      System.out.println(mat.get(3,3));
-//      System.out.println(mat.get(2,2));
-//      System.out.println(mat.get(3,3));
+
       
       mat.showSubsquare(12, 12);
     //  SparseMat<Double> mat2 = (SparseMat<Double>)mat.clone();
