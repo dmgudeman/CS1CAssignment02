@@ -8,6 +8,7 @@ public class SparseMat<E extends Comparable> implements Cloneable
    protected int rowSize, colSize;
    protected E defaultVal;
    protected FHarrayList<FHlinkedList<MatNode>> rows;
+   protected double uDefaultVal;
 
    public SparseMat(int rowSize, int colSize, E defaultVal)
    {
@@ -23,7 +24,7 @@ public class SparseMat<E extends Comparable> implements Cloneable
       this.colSize = colSize;
       this.defaultVal = defaultVal;
       rows = new FHarrayList<FHlinkedList<MatNode>>(rowSize);
-
+      uDefaultVal = ((Double)defaultVal).doubleValue();
       allocateEmptyMatrix();
    }
 
@@ -63,27 +64,51 @@ public class SparseMat<E extends Comparable> implements Cloneable
 
    protected boolean set(int r, int c, E x)
    {
-      if (r < 0 || c < 0 || r > rowSize || c > colSize)
+      if (r < 0 || c < 0 || r >= rowSize || c >= colSize)
          return false;
 
+//      if (x.equals(defaultVal) && (rows.contains(rows.get(r).get(c))) )
+//      {
+//      
+//          System.out.println();
+//            rows.remove(rows.get(r).get(c));
+//         
+//         return true;
+//      }
       MatNode temp;
       MatNode matNode = new MatNode(c, x);
+     
       ListIterator<MatNode> iterS = rows.get(r).listIterator();
-
-      while (iterS.hasNext())
-      {
+      
+//      if (rows.get(r).get(c).equals(matNode))
+//      {
+//         if (matNode.data.equals(defaultVal))
+//            rows.get(r).get(c).
+//         if (!matNode.data.equals(defaultVal)) 
+//            rows.get(r).get(c).data = matNode.data;
+//         return true;
+//      }   
+         while (iterS.hasNext())
+        {
+        
          temp = iterS.next();
-         if (matNode.data == defaultVal)
+         
+         if (temp.equals(matNode))
          {
-            iterS.remove();
+            if (matNode.data.equals(defaultVal))
+              iterS.remove();
+            
+            if (!matNode.data.equals(defaultVal)) 
+               iterS.set(matNode);
+            
             return true;
-         }
-
-         if (temp.col == c)
-         {
-            iterS.set(matNode);
-            return true;
-         }
+         } 
+            
+//         if (temp.col == c)
+//         {
+//            iterS.set(matNode);
+//            return true;
+//         }
 
          if (temp.col > c)
          {
@@ -93,6 +118,7 @@ public class SparseMat<E extends Comparable> implements Cloneable
          }
       }
       iterS.add(matNode);
+     
       return true;
    }
 
@@ -103,9 +129,13 @@ public class SparseMat<E extends Comparable> implements Cloneable
 
    protected void showSubsquare(int start, int size)
    {
-      
+      if(start + size > rowSize || start +size > colSize)
+      {
+        throw new IndexOutOfBoundsException();
+        
+      }
 
-      for (int i = start; i < start + size; i++)
+      for (int i = start; i < size + start; i++)
       {  MatNode temp;
          int str = start;
         
@@ -130,9 +160,9 @@ public class SparseMat<E extends Comparable> implements Cloneable
             }
             
           }  
-          if (str < start + size) 
+          if (str < size + start) 
           {
-             for (int k = str; k < start + size; k++)
+             for (int k = str; k < size + start; k++)
              {
                 System.out.print("\tX");
              }
