@@ -103,34 +103,42 @@ public class SparseMat<E extends Comparable> implements Cloneable
 
    protected void showSubsquare(int start, int size)
    {
-      MatNode prevTemp;
-      MatNode temp;
+      
 
-      int str = start;
-
-      for (int i = 0; i < 4; i++)
-      {
+      for (int i = start; i < start + size; i++)
+      {  MatNode temp;
+         int str = start;
+        
          System.out.println("\n");
+        
          ListIterator<MatNode> iterPc = rows.get(i).listIterator();
-
+         
          while (iterPc.hasNext())
-         {
-            temp = iterPc.next();
-            prevTemp = iterPc.previous();
-            Double x1 = (Double) temp.data;
-            if (temp.col - str > 1 || prevTemp.col - temp.col > 1)
+         {   temp = iterPc.next();
+            if (str < temp.col)
             {
-               System.out.println("    " + 0.00);
+               for(int j = str; j < temp.col; j++)
+               {
+                  System.out.println(" 00.0   ");
+               }
+               str = temp.col;
+            } else if (str == temp.col)
+            {
+               System.out.println("  " + temp.data);
                str++;
-            } else
-            {
-               iterPc.next();
-
-               System.out.print("    " + x1);
             }
-
-         }
-      }
+            
+          }  
+          if (str < start + size) 
+          {
+             for (int k = str; k < start + size; k++)
+             {
+                System.out.println("   00.0");
+             }
+           
+          }
+        
+       }
    }
 
    // protected enables us to safely make col/data public
