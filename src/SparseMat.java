@@ -4,13 +4,13 @@ import java.util.ListIterator;
 import cs_1c.FHarrayList;
 import cs_1c.FHlinkedList;
 
-
 public class SparseMat<E extends Comparable> implements Cloneable
 {
    protected int rowSize, colSize;
    protected E defaultVal;
    protected FHarrayList<FHlinkedList<MatNode>> rows;
-  // protected double uDefaultVal;
+
+   // protected double uDefaultVal;
 
    public SparseMat(int rowSize, int colSize, E defaultVal)
    {
@@ -26,16 +26,16 @@ public class SparseMat<E extends Comparable> implements Cloneable
       this.colSize = colSize;
       this.defaultVal = defaultVal;
       rows = new FHarrayList<FHlinkedList<MatNode>>(rowSize);
-  //    uDefaultVal = ((Double)defaultVal).doubleValue();
+      // uDefaultVal = ((Double)defaultVal).doubleValue();
       allocateEmptyMatrix();
    }
 
+   // helper method for the constructor
    private void allocateEmptyMatrix()
    {
       for (int i = 0; i < rowSize; i++)
       {
          FHlinkedList<MatNode> starter = new FHlinkedList<MatNode>();
-
          rows.add(starter);
       }
    }
@@ -73,25 +73,19 @@ public class SparseMat<E extends Comparable> implements Cloneable
       while (iterS.hasNext())
       {
          temp = iterS.next();
-
+         
+         // check to see if there is an existent node
          if (temp.col == matNode.col)
          {
             if (matNode.data.equals(defaultVal))
-
-            {
-               if (temp.data.equals(matNode.data))
-               {
+            {     
+                iterS.remove();
+                return true;
+            { 
                   iterS.set(matNode);
                   return true;
-               }
-               iterS.remove();
-               return true;
-            }
-            if (!temp.data.equals(matNode.data))
-            {
-               iterS.set(matNode);
-               return true;
-            }
+            
+            
          }
 
          if (temp.col > c)
@@ -100,65 +94,67 @@ public class SparseMat<E extends Comparable> implements Cloneable
             iterS.add(matNode);
             return true;
          }
-      }
+            }
       iterS.add(matNode);
       return true;
    }
 
    protected void clear()
    {
-     Iterator<FHlinkedList<SparseMat<E>.MatNode>> iterR = rows.iterator();
-      
-     while (iterR.hasNext())
-     {
-        iterR.next().clear();
-     }
-      
-   } 
+      Iterator<FHlinkedList<SparseMat<E>.MatNode>> iterR = rows.iterator();
+
+      while (iterR.hasNext())
+      {
+         iterR.next().clear();
+      }
+
+   }
 
    protected void showSubsquare(int start, int size)
    {
-      if(start + size >= rowSize || start + size >= colSize)
+      if (start + size >= rowSize || start + size >= colSize)
       {
-        throw new IndexOutOfBoundsException();       
+         throw new IndexOutOfBoundsException();
       }
-      
-      System.out.println("A matrix starting at " + start + " of " + size + " size.");
+
+      System.out.println("A matrix starting at " + start + " of " + size
+            + " size.");
 
       for (int i = start; i < size + start; i++)
-      { 
+      {
          System.out.println("\n");
          MatNode temp;
          int str = start;
-        
+
          ListIterator<MatNode> iterPc = rows.get(i).listIterator();
-         
+
          while (iterPc.hasNext())
-         {   temp = iterPc.next();
+         {
+            temp = iterPc.next();
             if (str < temp.col)
             {
-               for(int j = str; j < temp.col; j++)
+               for (int j = str; j < temp.col; j++)
                {
                   System.out.print("\t" + defaultVal);
                }
                str = temp.col;
-            } 
+            }
             if (str == temp.col)
             {
                System.out.print("\t" + temp.data);
                str++;
             }
-            
-          }  
-          if (str < size + start) 
-          {
-             for (int k = str; k < size + start; k++)
-             {
-                System.out.print("\t" + defaultVal);
-             }
-           
-          }        
-       }
+
+         }
+         if (str < size + start)
+         {
+            for (int k = str; k < size + start; k++)
+            {
+               System.out.print("\t" + defaultVal);
+            }
+
+         }
+      }
       System.out.println("\n");
    }
 
