@@ -20,15 +20,18 @@ public class Foothill
       // test mutators
 //  
      // for (k = 0; k < 10; k++)
-      {   
+      {  
+         
+         mat.set(5, 5, 55.);
+         mat.set(5, 5, 58.);
+
          mat.set(1, 1, 0.);
          mat.set(0, 5, 8.0);
          mat.set(0, 1, 1.);
          mat.set(1, 3, 13.);
          mat.set(1, 0, 10.);
-
+         mat.set(0, 8, 56.0);
          mat.set(1, 1, 11.);
-
          mat.set(2, 0, 20.);
         
          mat.set(3,3, 33.);
