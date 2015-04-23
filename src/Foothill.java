@@ -21,19 +21,19 @@ public class Foothill
 //  
      // for (k = 0; k < 10; k++)
       {   
-         mat.set(0, 0, 0.);
-
-//         mat.set(0, 1, 1.);
+         mat.set(0, 0, 7.);
+         mat.set(0, 5, 8.0);
+         mat.set(0, 1, 1.);
          mat.set(1, 3, 13.);
          mat.set(1, 0, 10.);
 
-//         mat.set(1, 1, 11.);
-//
-//         mat.set(2, 0, 20.);
-//        
-//         mat.set(3,3, 33.);
-//         mat.set(3,2, 32.);
-//         
+         mat.set(1, 1, 11.);
+
+         mat.set(2, 0, 20.);
+        
+         mat.set(3,3, 33.);
+         mat.set(3,2, 32.);
+         
          
          }
 

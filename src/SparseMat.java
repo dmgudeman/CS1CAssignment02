@@ -119,12 +119,13 @@ public class SparseMat<E extends Comparable> implements Cloneable
             {
                for(int j = str; j < temp.col; j++)
                {
-                  System.out.println(" 00.0   ");
+                  System.out.print("\tx");
                }
                str = temp.col;
-            } else if (str == temp.col)
+            } 
+            if (str == temp.col)
             {
-               System.out.println("  " + temp.data);
+               System.out.print("\t" + temp.data);
                str++;
             }
             
@@ -133,7 +134,7 @@ public class SparseMat<E extends Comparable> implements Cloneable
           {
              for (int k = str; k < start + size; k++)
              {
-                System.out.println("   00.0");
+                System.out.print("\tX");
              }
            
           }
