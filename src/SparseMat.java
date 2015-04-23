@@ -1,14 +1,16 @@
+import java.util.Iterator;
 import java.util.ListIterator;
 
 import cs_1c.FHarrayList;
 import cs_1c.FHlinkedList;
+
 
 public class SparseMat<E extends Comparable> implements Cloneable
 {
    protected int rowSize, colSize;
    protected E defaultVal;
    protected FHarrayList<FHlinkedList<MatNode>> rows;
-   protected double uDefaultVal;
+  // protected double uDefaultVal;
 
    public SparseMat(int rowSize, int colSize, E defaultVal)
    {
@@ -24,22 +26,18 @@ public class SparseMat<E extends Comparable> implements Cloneable
       this.colSize = colSize;
       this.defaultVal = defaultVal;
       rows = new FHarrayList<FHlinkedList<MatNode>>(rowSize);
-      uDefaultVal = ((Double)defaultVal).doubleValue();
+  //    uDefaultVal = ((Double)defaultVal).doubleValue();
       allocateEmptyMatrix();
    }
 
    private void allocateEmptyMatrix()
    {
-      System.out.println(" rowSize: " + rowSize + "\n");
-      System.out.println("sparseMat.size(): " + rows.size() + "\n");
       for (int i = 0; i < rowSize; i++)
       {
          FHlinkedList<MatNode> starter = new FHlinkedList<MatNode>();
 
          rows.add(starter);
       }
-      System.out.println("sparseMat.size(): " + rows.size() + "\n");
-      System.out.println(rows.size());
    }
 
    protected E get(int r, int c)
@@ -109,22 +107,29 @@ public class SparseMat<E extends Comparable> implements Cloneable
 
    protected void clear()
    {
-      rows.clear();
-   }
+     Iterator<FHlinkedList<SparseMat<E>.MatNode>> iterR = rows.iterator();
+      
+     while (iterR.hasNext())
+     {
+        iterR.next().clear();
+     }
+      
+   } 
 
    protected void showSubsquare(int start, int size)
    {
-      if(start + size > rowSize || start +size > colSize)
+      if(start + size >= rowSize || start + size >= colSize)
       {
-        throw new IndexOutOfBoundsException();
-        
+        throw new IndexOutOfBoundsException();       
       }
+      
+      System.out.println("A matrix starting at " + start + " of " + size + " size.");
 
       for (int i = start; i < size + start; i++)
-      {  MatNode temp;
-         int str = start;
-        
+      { 
          System.out.println("\n");
+         MatNode temp;
+         int str = start;
         
          ListIterator<MatNode> iterPc = rows.get(i).listIterator();
          
@@ -134,7 +139,7 @@ public class SparseMat<E extends Comparable> implements Cloneable
             {
                for(int j = str; j < temp.col; j++)
                {
-                  System.out.print("\tx");
+                  System.out.print("\t" + defaultVal);
                }
                str = temp.col;
             } 
@@ -149,12 +154,12 @@ public class SparseMat<E extends Comparable> implements Cloneable
           {
              for (int k = str; k < size + start; k++)
              {
-                System.out.print("\tX");
+                System.out.print("\t" + defaultVal);
              }
            
-          }
-        
+          }        
        }
+      System.out.println("\n");
    }
 
    // protected enables us to safely make col/data public
